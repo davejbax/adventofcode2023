@@ -7,6 +7,12 @@
 * No using `local-exec` or similar shortcuts
 * Resources are permissible as long as they don't solve the problem in a straightforward way: e.g. creating an AWS Lambda to run a Python script is _not_ allowed. Any resource usage should generally look like a misuse of that resource.
 
+## Development
+
+```
+pre-commit install
+```
+
 ## Running
 
 For now, it's as simple as a `terraform init` and a `terraform apply`:
