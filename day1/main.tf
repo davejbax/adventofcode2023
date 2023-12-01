@@ -33,8 +33,6 @@ locals {
   }
   numbers_or_words = [
     for line in local.input_lines :
-    # First digit and last digit on reverse string, concat'd
-    # '+' doesn't work here, as that tries to add the digits!
     [
       regex("(\\d|one|two|three|four|five|six|seven|eight|nine)", line)[0],
       regex("(\\d|eno|owt|eerht|ruof|evif|xis|neves|thgie|enin)", strrev(line))[0],
