@@ -9,6 +9,8 @@ locals {
   # N.B. range() has a limit of 1024, so range(w*h) doesn't work
   grid_cell_coords = [for v in setproduct(range(local.grid_width), range(local.grid_height)) : "${v[0]}x${v[1]}"]
 
+  adjacent_numbers = [for coord in toset(local.grid_cell_coords) : module.cell[coord].number if module.cell[coord].adjacent_to_symbol]
+
 }
 
 module "cell" {
@@ -24,5 +26,5 @@ module "cell" {
 }
 
 output "part1" {
-  value = sum([for cell in module.cell : cell.number if cell.adjacent_to_symbol])
+  value = sum(local.adjacent_numbers)
 }

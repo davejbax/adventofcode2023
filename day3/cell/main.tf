@@ -26,11 +26,11 @@ variable "y" {
 locals {
   numbers = regexall("^\\d+", var.text)
 
-  is_valid = var.left == "." && length(local.numbers) > 0
+  is_valid = length(regexall("\\d", var.left)) == 0 && length(local.numbers) > 0
 
   adjacent = local.is_valid ? [
     # Generates a set of adjacent coordinates, from (-1,-1) to (w+1,1)
-    for i in setproduct(range(-1, length(local.numbers[0]) + 2), range(-1, 2)) :
+    for i in setproduct(range(-1, length(local.numbers[0]) + 1), range(-1, 2)) :
     (
       # To make things simpler, ignore ourselves
       i[1] == 0 && i[0] >= 0 && i[0] < length(local.numbers[0])
@@ -50,4 +50,8 @@ output "number" {
 
 output "adjacent_to_symbol" {
   value = local.is_valid ? local.adjacent_to_symbol : false
+}
+
+output "adjacent" {
+  value = local.is_valid ? local.adjacent : null
 }
